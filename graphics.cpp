@@ -137,26 +137,9 @@ void graphics_update(void)
 }
 
 /* ---------------- Geometry Functions ---------------- */
-void draw_center_rectangle(int32_t width, int32_t height, int32_t xpos, int32_t ypos)
+void draw_box_rotation(int32_t width, float rad)
 {
-    int32_t start_xpos  = xpos - width / 2;
-    int32_t start_ypos = ypos - height / 2;
-
-    draw_line(start_xpos, start_ypos, start_xpos + width, start_ypos);
-    draw_line(start_xpos + width, start_ypos, start_xpos + width, start_ypos + height);
-    draw_line(start_xpos + width, start_ypos + height, start_xpos, start_ypos + height);
-    draw_line(start_xpos, start_ypos + height, start_xpos, start_ypos);
-}
-
-void draw_sqaure_rotation(int32_t width, float rad)
-{
-  /*
-  vec2d_t vector = 
-    {
-        .x1 = sin(rad) * width,
-        .x2 = sin(2*rad) * width
-    };
-  */
+  // r*cos(rad), r*sin(rad)
   vec2d_t vector1 = 
     {
         .x1 = width * cos(rad),
@@ -178,21 +161,10 @@ void draw_sqaure_rotation(int32_t width, float rad)
         .x2 = width * sin(rad + 3 * PI / 2)
     };
 
-  //if (0 == vector.x1) {
-  //  vector.x1 = width;
-  //}
-
-  // Serial.printf("X %lg Y %lf RAD %f \n", vector.x1, vector.x2, rad);
-
   draw_line(vector1.x1 + width, vector1.x2 + width, vector2.x1 + width, vector2.x2 + width);
   draw_line(vector2.x1 + width, vector2.x2 + width, vector3.x1 + width, vector3.x2 + width);
   draw_line(vector3.x1 + width, vector3.x2 + width, vector4.x1 + width, vector4.x2 + width);
   draw_line(vector4.x1 + width, vector4.x2 + width, vector1.x1 + width, vector1.x2 + width);
-
-  // draw_line(vector.x1 + width, vector.x2 + width, -vector.x2 + width, vector.x1 + width);
-  // draw_line(-vector.x2 + width, vector.x1 + width, -vector.x1 + width, -vector.x2 + width);
-  // draw_line(-vector.x1 + width, -vector.x2 + width, vector.x2 + width, -vector.x1 + width);
-  // draw_line(vector.x2 + width, -vector.x1 + width, vector.x1 + width, vector.x2 + width);
 }
 
 /* ---------------- Vector Functions ---------------- */
